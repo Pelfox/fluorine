@@ -27,10 +27,14 @@ impl DatabaseServer {
             let mut connection = Connection::new(stream, addr);
 
             loop {
-                connection
+                let size = connection
                     .extend_buffer()
                     .await
                     .context("unable to extend the buffer")?;
+                // client has been disconnected, closing the connection
+                if size == -1 {
+                    break;
+                }
             }
         }
     }
