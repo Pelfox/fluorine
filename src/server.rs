@@ -19,10 +19,7 @@ impl DatabaseServer {
             .await
             .context("unable to start TCP listener")?;
 
-        println!("working");
-
         loop {
-            println!("asdasdsa");
             let (stream, addr) = listener
                 .accept()
                 .await
